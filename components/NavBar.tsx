@@ -15,7 +15,6 @@ export default function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Handle scroll detection for background styling
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -28,44 +27,50 @@ export default function NavBar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-outfit ${
-          isScrolled ? "bg-white shadow-md py-4" : "bg-transparent py-2"
+          isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-2"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
+          {/* LOGO: Switches from White to Navy based on scroll */}
           <Link
             href="/"
-            className="text-2xl font-bold tracking-tight text-[#282562] z-50"
+            className={`text-2xl font-bold tracking-tight z-50 transition-colors ${
+              isScrolled ? "text-[#282562]" : "text-white"
+            }`}
           >
             FLYMEL
           </Link>
 
-          {/* Desktop Navigation (Center) */}
+          {/* DESKTOP NAV: Switches from White to Navy */}
           <nav className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-base font-medium text-[#282562]/80 hover:text-[#E12128] transition-colors"
+                className={`text-base font-medium transition-colors hover:text-[#E12128] ${
+                  isScrolled ? "text-[#282562]/80" : "text-white/90"
+                }`}
               >
                 {link.name}
               </Link>
             ))}
           </nav>
 
-          {/* Actions (Right) */}
+          {/* ACTIONS */}
           <div className="flex items-center gap-6">
             <Link
               href="/contact"
-              className="hidden md:block px-6 py-3 text-base font-semibold text-white bg-[#E12128] rounded-lg hover:bg-[#c41b22] transition-colors shadow-lg shadow-red-900/20"
+              className="hidden md:block px-6 py-3 text-base font-semibold text-white bg-[#E12128] rounded-lg hover:bg-[#282562] transition-colors shadow-lg shadow-red-900/20"
             >
               Contact Us
             </Link>
 
-            {/* Mobile Menu Button */}
+            {/* MOBILE MENU TOGGLE: Switches color */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-[#282562] hover:text-[#E12128] transition-colors z-50 focus:outline-none"
+              className={`md:hidden p-2 z-50 focus:outline-none transition-colors hover:text-[#E12128] ${
+                isMobileMenuOpen || isScrolled ? "text-[#282562]" : "text-white"
+              }`}
             >
               {isMobileMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
             </button>
@@ -73,7 +78,7 @@ export default function NavBar() {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay (CSS Transition only) */}
+      {/* MOBILE MENU OVERLAY */}
       <div
         className={`fixed inset-0 z-40 bg-white flex flex-col pt-28 px-6 font-outfit transition-transform duration-300 ease-in-out ${
           isMobileMenuOpen

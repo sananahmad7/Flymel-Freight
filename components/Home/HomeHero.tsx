@@ -1,135 +1,95 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { FiSearch, FiArrowRight, FiAnchor, FiSend } from "react-icons/fi";
+import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import { FiArrowRight, FiChevronDown } from "react-icons/fi";
 
-export default function HomeHero() {
+export default function Hero() {
+  const [isMounted, setIsMounted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.log("Video autoplay failed:", error);
+      });
+    }
+  }, []);
+
   return (
-    <section className="relative w-full min-h-screen bg-[#282562] px-4 pt-24 pb-4 font-outfit text-white overflow-hidden">
-      {/* Bento Grid Layout:
-        - Mobile: Single column (grid-cols-1)
-        - Desktop (md): 4 Columns, 3 Rows
-        - Height: h-[85vh] to keep it above the fold but allow breathing room
-      */}
-      <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-4 w-full max-w-7xl mx-auto h-auto md:h-[85vh]">
-        {/* === ITEM 1: The Main Stage (Interactive Globe) === 
-            Spans: 2 Columns, 3 Rows (Left Side)
-        */}
-        <div className="md:col-span-2 md:row-span-3 bg-gradient-to-b from-[#1A1840] to-black rounded-3xl relative overflow-hidden group border border-white/5">
-          {/* Visual Placeholder for 3D Globe */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-30">
-            <div className="w-[500px] h-[500px] rounded-full bg-blue-900/20 blur-3xl animate-pulse" />
-            {/* Actual 3D Canvas would go here */}
-          </div>
+    <section className="relative h-screen w-full overflow-hidden font-outfit bg-[#282562]">
+      {/* ================= MAIN VIDEO BACKGROUND ================= */}
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        style={{ filter: "brightness(0.9)" }}
+      >
+        <source src="/hero.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-          <div className="absolute bottom-8 left-8 z-10 max-w-md">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-[#E12128] bg-[#E12128]/10 rounded-full border border-[#E12128]/20"
+      {/* ================= CINEMATIC GRADIENT ================= */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e24]/20 via-[#282562]/30 to-transparent z-1"></div>
+
+      {/* ================= CONTENT CONTAINER ================= */}
+      <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col justify-end pb-24 md:pb-32">
+        <div
+          className={`flex flex-col items-start max-w-4xl transition-all duration-1000 ease-out transform ${
+            isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          {/* Tagline */}
+          <span className="inline-block py-1 px-3 mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#E12128] font-bold tracking-widest uppercase text-xs md:text-sm">
+            Global Logistics Network
+          </span>
+
+          {/* Headline */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.05] mb-6 drop-shadow-lg">
+            Moving Your World, <br />
+            <span className="text-[#282562] bg-clip-text bg-gradient-to-r from-white to-white/60">
+              Simplified.
+            </span>
+          </h1>
+
+          {/* Subheadline (Reverted to stack below headline) */}
+          <p className="text-lg md:text-xl text-white/80 max-w-xl leading-relaxed font-light mb-10 drop-shadow-md">
+            Experience friction-free supply chains. We combine advanced
+            technology with human expertise to deliver certainty in an uncertain
+            world.
+          </p>
+
+          {/* Buttons (Reverted to old style) */}
+          <div className="flex flex-wrap gap-5">
+            <Link
+              href="/contact"
+              className="group relative overflow-hidden px-8 py-4 bg-[#E12128] text-white text-lg font-bold rounded-xl shadow-lg shadow-red-900/30 hover:scale-105 hover:bg-[#282562] transition-all  flex items-center gap-3"
             >
-              GLOBAL CONNECTIVITY
-            </motion.span>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-2">
-              Melbourne to <br /> Middle East.{" "}
-              <span className="text-white/50">Simplified.</span>
-            </h1>
-            <p className="text-white/60 text-sm max-w-sm">
-              Experience the Kinetic Transparency network. Real-time data, zero
-              friction.
-            </p>
+              <span className="relative z-10">Get In Touch</span>
+              <FiArrowRight className="relative z-10 transition-transform group-hover:translate-x-1" />
+            </Link>
+
+            <Link
+              href="/services"
+              className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/20 text-white text-lg font-semibold rounded-xl transition-all hover:bg-white/10 hover:border-white/40 flex items-center"
+            >
+              Explore Services
+            </Link>
           </div>
         </div>
+      </div>
 
-        {/* === ITEM 2: Tracking Module === 
-            Spans: 2 Columns, 1 Row (Top Right)
-        */}
-        <div className="md:col-span-2 md:row-span-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 flex flex-col justify-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-10">
-            <FiSearch size={120} />
-          </div>
-
-          <h3 className="text-2xl font-semibold mb-6 z-10">Instant Track</h3>
-
-          <div className="relative z-10 flex items-center w-full">
-            <input
-              type="text"
-              placeholder="Enter AWB or Container Number"
-              className="w-full bg-white/5 border border-white/20 rounded-full py-4 pl-6 pr-16 text-white placeholder-white/40 focus:outline-none focus:border-[#E12128] focus:bg-[#282562]/50 transition-all"
-            />
-            <button className="absolute right-2 top-2 bottom-2 aspect-square bg-[#E12128] rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-lg shadow-red-900/40">
-              <FiArrowRight size={20} />
-            </button>
-          </div>
-        </div>
-
-        {/* === ITEM 3: Service A (Air Freight) === 
-            Spans: 1 Column, 2 Rows (Bottom Middle)
-        */}
-        <motion.div
-          className="md:col-span-1 md:row-span-2 relative rounded-3xl overflow-hidden group cursor-pointer"
-          whileHover="hover"
-        >
-          {/* Background Image with Zoom Effect */}
-          <motion.div
-            variants={{ hover: { scale: 1.1 } }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1524592714635-d77511a4834d?auto=format&fit=crop&q=80')",
-            }} // Airport Night
-          />
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-[#282562]/40 to-transparent" />
-
-          <div className="absolute bottom-0 left-0 p-6 w-full">
-            <div className="mb-2 bg-white/10 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm">
-              <FiSend className="text-[#E12128]" />
-            </div>
-            <motion.div variants={{ hover: { y: -5 } }}>
-              <h4 className="text-xl font-bold">Air Freight</h4>
-              <p className="text-xs text-white/60 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                Next-flight out priority services.
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* === ITEM 4: Service B (Sea Freight) === 
-            Spans: 1 Column, 2 Rows (Bottom Right)
-        */}
-        <motion.div
-          className="md:col-span-1 md:row-span-2 relative rounded-3xl overflow-hidden group cursor-pointer"
-          whileHover="hover"
-        >
-          {/* Background Image with Zoom Effect */}
-          <motion.div
-            variants={{ hover: { scale: 1.1 } }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1494412574643-35d324688133?auto=format&fit=crop&q=80')",
-            }} // Ship Night
-          />
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-[#282562]/40 to-transparent" />
-
-          <div className="absolute bottom-0 left-0 p-6 w-full">
-            <div className="mb-2 bg-white/10 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm">
-              <FiAnchor className="text-[#E12128]" />
-            </div>
-            <motion.div variants={{ hover: { y: -5 } }}>
-              <h4 className="text-xl font-bold">Ocean Freight</h4>
-              <p className="text-xs text-white/60 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                Full container load global transit.
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
+      {/* ================= SCROLL INDICATOR ================= */}
+      <div
+        className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center text-white/30 transition-all duration-1000 delay-700 ${
+          isMounted ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <FiChevronDown className="animate-bounce w-8 h-8" />
       </div>
     </section>
   );
