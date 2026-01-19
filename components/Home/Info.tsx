@@ -12,7 +12,7 @@ import {
 
 export default function Info() {
   return (
-    <section className="relative w-full z-20 font-outfit mt-12 mb-12 px-6">
+    <section className="relative w-full z-20 font-outfit mt-12 mb-12 px-6 ">
       <div className="max-w-7xl mx-auto">
         {/* Header Label - Compact */}
         <div className="flex items-center gap-4 mb-4">
@@ -142,7 +142,7 @@ export default function Info() {
               </div>
 
               <div className="flex-1 mt-3 md:mt-0">
-                <span className="text-3xl md:text-4xl font-bold tracking-tighter leading-none">
+                <span className="text-2xl md:text-3xl font-bold tracking-tighter leading-none">
                   BUY CARGO SPACE
                 </span>
               </div>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image"; // 1. Import Image
 import { FiMenu, FiX } from "react-icons/fi";
 
 const navLinks = [
@@ -31,14 +32,15 @@ export default function NavBar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* LOGO: Switches from White to Navy based on scroll */}
-          <Link
-            href="/"
-            className={`text-2xl font-bold tracking-tight z-50 transition-colors ${
-              isScrolled ? "text-[#282562]" : "text-white"
-            }`}
-          >
-            FLYMEL
+          {/* LOGO: Switches source based on scroll to ensure contrast */}
+          <Link href="/" className="z-50 relative w-32 h-17 ">
+            <Image
+              src={"/logo.png"}
+              alt="FLYMEL"
+              fill
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* DESKTOP NAV: Switches from White to Navy */}
@@ -47,8 +49,8 @@ export default function NavBar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-base font-medium transition-colors hover:text-[#E12128] ${
-                  isScrolled ? "text-[#282562]/80" : "text-white/90"
+                className={`text-lg font-medium transition-colors hover:text-[#282562] ${
+                  isScrolled ? "text-[#282562]/80" : "text-[#E12128]"
                 }`}
               >
                 {link.name}
