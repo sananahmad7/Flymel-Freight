@@ -76,7 +76,7 @@ export default function Services() {
 
   return (
     <section className="py-10 bg-white font-outfit ">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="container mx-auto px-6">
         {/* === HEADER === */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <div className="flex items-center justify-center gap-3 mb-3">

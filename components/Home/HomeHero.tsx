@@ -37,7 +37,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e24]/20 via-[#282562]/30 to-transparent z-1"></div>
 
       {/* ================= CONTENT CONTAINER ================= */}
-      <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col py-20 lg:py-30 2xl:py-35">
+      <div className="relative z-10 h-full container mx-auto px-6 flex flex-col py-20 lg:py-30 2xl:py-35">
         <div
           className={`flex flex-col items-start max-w-4xl transition-all duration-1000 ease-out transform ${
             isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"

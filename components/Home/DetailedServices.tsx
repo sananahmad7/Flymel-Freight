@@ -59,7 +59,7 @@ export default function DetailedServices() {
 
   return (
     <section className="py-20 bg-white font-outfit">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="container mx-auto px-6">
         {/* === SECTION HEADER === */}
         <div className="mb-16 text-center">
           <span className="text-[#E12128] font-bold tracking-widest text-xs uppercase mb-3 block">

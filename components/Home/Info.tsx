@@ -13,7 +13,7 @@ import {
 export default function Info() {
   return (
     <section className="relative w-full z-20 font-outfit mt-12 mb-12 px-6 ">
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto">
         {/* Header Label - Compact */}
         <div className="flex items-center gap-4 mb-4">
           <div className="h-px bg-[#282562]/20 flex-1"></div>
